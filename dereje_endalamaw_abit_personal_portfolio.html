@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="am" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ደረጀ እንዳላማው አብጥ - የህግ ባለሙያ የግል ዌብሳይት</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Noto Sans Ethiopic & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+Ethiopic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            800: '#1C2541',
+                            900: '#0B132B',
+                            950: '#060B18'
+                        },
+                        gold: {
+                            400: '#F4D03F',
+                            500: '#D4AF37',
+                            600: '#AA820A'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans Ethiopic"', 'Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @media print {
+            .no-print { display: none !important; }
+            body { background: white !important; color: black !important; }
+            .print-card { border: 1px solid #ccc !important; shadow: none !important; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-navy-950 text-slate-800 dark:text-slate-100 font-sans transition-colors duration-300 min-h-screen flex flex-col">
+
+    <!-- Header / Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-white/90 dark:bg-navy-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 shadow-sm no-print">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand / Name -->
+            <div class="flex items-center space-x-3 space-x-reverse">
+                <div class="w-10 h-10 rounded-lg bg-gold-500 flex items-center justify-center text-navy-950 font-bold text-xl shadow-md">
+                    ደ
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-navy-900 dark:text-slate-100 leading-tight" id="nav-name">
+                        ደረጀ እንዳላማው አብጥ
+                    </h1>
+                    <p class="text-xs text-gold-600 dark:text-gold-400 font-medium" id="nav-title">
+                        የሕግ ባለሙያና ዐቃቤ ሕግ
+                    </p>
+                </div>
+            </div>
+
+            <!-- Controls (Language Switcher, Theme Toggle, Print Button) -->
+            <div class="flex items-center space-x-3">
+                <!-- Print / Save PDF -->
+                <button onclick="window.print()" title="ገጹን አትም / በPDF አስቀምጥ" class="p-2.5 rounded-lg bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition">
+                    <i class="fa-solid fa-print"></i>
+                </button>
+
+                <!-- Dark / Light Mode Toggle -->
+                <button id="theme-toggle" onclick="toggleTheme()" class="p-2.5 rounded-lg bg-slate-100 dark:bg-navy-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition">
+                    <i id="theme-icon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Language Toggle Button -->
+                <button onclick="toggleLanguage()" class="flex items-center space-x-2 px-3 py-2 rounded-lg bg-gold-500 hover:bg-gold-600 text-navy-950 font-semibold text-sm transition shadow-sm">
+                    <i class="fa-solid fa-language text-base"></i>
+                    <span id="lang-btn-text">English</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- Hero / Profile Summary Banner -->
+        <section class="bg-white dark:bg-navy-900 rounded-2xl p-6 sm:p-8 shadow-xl border border-slate-200 dark:border-slate-800 relative overflow-hidden print-card">
+            <!-- Decorative Accent Background -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-gold-500/10 rounded-full filter blur-3xl -z-0 pointer-events-none"></div>
+
+            <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                <!-- Profile Image Avatar Container -->
+                <div class="relative group">
+                    <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-2xl overflow-hidden border-4 border-gold-500 shadow-2xl bg-slate-200 dark:bg-navy-800 flex items-center justify-center">
+                        <img id="profile-img" src="https://placehold.co/400x400/0B132B/D4AF37?text=%E1%8B%A0%E1%8B%A8%E1%8C%AE+%E1%8B%AE%E1%8C%B3" alt="ደረጀ እንዳላማው አብጥ" class="w-full h-full object-cover">
+                    </div>
+                    <!-- Photo Change Button Overlay -->
+                    <label for="image-upload" class="no-print absolute bottom-2 right-2 bg-navy-900 text-gold-400 p-3 rounded-full cursor-pointer shadow-lg hover:bg-gold-500 hover:text-navy-950 transition-all border-2 border-white dark:border-navy-800" title="ፎቶ ይቀይሩ">
+                        <i class="fa-solid fa-camera"></i>
+                        <input type="file" id="image-upload" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                    </label>
+                </div>
+
+                <!-- Personal Info Details -->
+                <div class="flex-1 text-center md:text-right space-y-4">
+                    <div>
+                        <span id="badge-status" class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 mb-2">
+                            ለቅጥር ጥያቄ ዝግጁ
+                        </span>
+                        <h2 id="hero-name" class="text-3xl sm:text-4xl font-extrabold text-navy-900 dark:text-slate-50">
+                            ደረጀ እንዳላማው አብጥ
+                        </h2>
+                        <p id="hero-subtitle" class="text-lg font-medium text-gold-600 dark:text-gold-400 mt-1">
+                            በኢ.ፌ.ዲ.ሪ. ፍትሕ ሚኒስቴር ዐቃቤ ሕግ እና የቀድሞ የወረዳ ዳኛ
+                        </p>
+                    </div>
+
+                    <p id="hero-bio" class="text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl text-sm sm:text-base">
+                        ከ9 ዓመታት በላይ በኢትዮጵያ የሕግ ሥርዓት ውስጥ በዳኝነት እና በዐቃቤ ሕግነት ያገለገሉ ከፍተኛ የሕግ ባለሙያ። በወንጀልና በፍትሐብሔር ክርክሮች፣ በሕግ ምርመራ እና በፍርድ ቤት ዳኝነት ሰፊ ልምድ ያላቸው።
+                    </p>
+
+                    <!-- Contact Bar Quick Links -->
+                    <div class="pt-2 flex flex-wrap justify-center md:justify-start gap-4 text-sm font-medium">
+                        <a href="tel:0915509617" class="flex items-center space-x-2 space-x-reverse text-slate-700 dark:text-slate-200 hover:text-gold-600 dark:hover:text-gold-400 transition bg-slate-100 dark:bg-navy-800 px-3.5 py-2 rounded-lg">
+                            <i class="fa-solid fa-phone text-gold-500"></i>
+                            <span>0915509617</span>
+                        </a>
+                        <a href="mailto:derejeendalamaw44@gmail.com" class="flex items-center space-x-2 space-x-reverse text-slate-700 dark:text-slate-200 hover:text-gold-600 dark:hover:text-gold-400 transition bg-slate-100 dark:bg-navy-800 px-3.5 py-2 rounded-lg">
+                            <i class="fa-solid fa-envelope text-gold-500"></i>
+                            <span>derejeendalamaw44@gmail.com</span>
+                        </a>
+                        <span class="flex items-center space-x-2 space-x-reverse text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-navy-800 px-3.5 py-2 rounded-lg">
+                            <i class="fa-solid fa-location-dot text-gold-500"></i>
+                            <span id="hero-location">አዲስ አበባ / ባህር ዳር፣ ኢትዮጵያ</span>
+                        </span>
+                    </div>
+
+                    <!-- CTA Action Button -->
+                    <div class="pt-4 no-print flex justify-center md:justify-start">
+                        <button onclick="openHireModal()" class="px-6 py-3 rounded-xl bg-gold-500 hover:bg-gold-600 text-navy-950 font-bold shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 flex items-center space-x-2 space-x-reverse">
+                            <i class="fa-solid fa-briefcase"></i>
+                            <span id="btn-hire-cta">የቅጥር ጥያቄ ለማቅረብ</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience & Legal Practice Section -->
+        <section class="space-y-6">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-3 flex items-center justify-between">
+                <h3 id="sec-exp-title" class="text-2xl font-bold text-navy-900 dark:text-slate-100 flex items-center gap-3">
+                    <i class="fa-solid fa-scale-balanced text-gold-500"></i>
+                    የሥራ ልምድ እና የሕግ አገልግሎት
+                </h3>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6">
+                <!-- Experience Card 1: Public Prosecutor -->
+                <div class="bg-white dark:bg-navy-900 rounded-xl p-6 shadow-md border border-slate-200 dark:border-slate-800 relative hover:border-gold-500/50 transition">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <div>
+                            <h4 id="exp1-role" class="text-xl font-bold text-navy-900 dark:text-slate-100">
+                                ዐቃቤ ሕግ
+                            </h4>
+                            <p id="exp1-inst" class="text-gold-600 dark:text-gold-400 font-medium">
+                                በኢ.ፌ.ዲ.ሪ. ፍትሕ ሚኒስቴር
+                            </p>
+                        </div>
+                        <span id="exp1-date" class="inline-block px-3 py-1 rounded-md text-xs font-semibold bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 w-max">
+                            ከሚያዚያ 11 ቀን 2016 ዓ.ም እስከ አሁን
+                        </span>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed" id="exp1-desc">
+                        <li>በወንጀል እና በፍትሐብሔር ክርክሮች ላይ መንግሥትንና የሕዝብ ጥቅምን ወክሎ መከራከር።</li>
+                        <li>የወንጀል ምርመራ መዛግብትን መመርመር፣ የክስ መሥረቻ ነጥቦችን ማዘጋጀትና ክስ መሥረቻ ማቅረብ።</li>
+                        <li>የፍትሐብሔር ጉዳዮችን ማዘጋጀትና ለፍርድ ቤት የጽሑፍና የቃል ክርክሮችን ማቅረብ።</li>
+                    </ul>
+                </div>
+
+                <!-- Experience Card 2: District Judge -->
+                <div class="bg-white dark:bg-navy-900 rounded-xl p-6 shadow-md border border-slate-200 dark:border-slate-800 relative hover:border-gold-500/50 transition">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <div>
+                            <h4 id="exp2-role" class="text-xl font-bold text-navy-900 dark:text-slate-100">
+                                የወረዳ ዳኛ
+                            </h4>
+                            <p id="exp2-inst" class="text-gold-600 dark:text-gold-400 font-medium">
+                                በአማራ ክልል ጠቅላይ ፍርድ ቤት (የወረዳ ፍርድ ቤት)
+                            </p>
+                        </div>
+                        <span id="exp2-date" class="inline-block px-3 py-1 rounded-md text-xs font-semibold bg-slate-100 dark:bg-navy-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 w-max">
+                            ከጥቅምት 01 ቀን 2010 ዓ.ም እስከ ሚያዚያ 10 ቀን 2016 ዓ.ም
+                        </span>
+                    </div>
+                    <ul class="list-disc list-inside space-y-2 text-slate-600 dark:text-slate-300 text-sm leading-relaxed" id="exp2-desc">
+                        <li>የወንጀልና የፍትሐብሔር ክርክሮችን በዳኝነት መመርመር፣ መምራትና ውሳኔ መስጠት።</li>
+                        <li>የምስክሮች ቃል መስማት፣ የሰውና የሰነድ ማስረጃዎችን መመዘንና ሕጉን መሠረት ያደረገ ፍርድ መስጠት።</li>
+                        <li>የክርክር ሂደቶች የሕግ ሥነ-ሥርዓትንና የፍትሕ መርሆዎችን የጠበቁ መሆናቸውን ማረጋገጥ።</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Legal Specialties & Core Competencies -->
+        <section class="space-y-6">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-3">
+                <h3 id="sec-skills-title" class="text-2xl font-bold text-navy-900 dark:text-slate-100 flex items-center gap-3">
+                    <i class="fa-solid fa-gavel text-gold-500"></i>
+                    የሕግ ክህሎቶችና የሙያ ዘርፎች
+                </h3>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Specialty 1 -->
+                <div class="bg-white dark:bg-navy-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+                    <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-scale-unbalanced"></i>
+                    </div>
+                    <h4 id="skill1-title" class="font-bold text-navy-900 dark:text-slate-100">
+                        የወንጀልና የፍትሐብሔር ክርክሮች
+                    </h4>
+                    <p id="skill1-desc" class="text-xs text-slate-600 dark:text-slate-400">
+                        በፍርድ ቤት የክርክር ሂደት፣ ክስ ማዘጋጀትና ምስክሮችን የመመርመር ከፍተኛ ችሎታ።
+                    </p>
+                </div>
+
+                <!-- Specialty 2 -->
+                <div class="bg-white dark:bg-navy-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+                    <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <h4 id="skill2-title" class="font-bold text-navy-900 dark:text-slate-100">
+                        የሕግ ምርመራና ውሳኔ አሰጣጥ
+                    </h4>
+                    <p id="skill2-desc" class="text-xs text-slate-600 dark:text-slate-400">
+                        የዳኝነት ልምድን መሠረት ያደረገ ጥልቅ የሰነድና የሕግ ነጥብ መርማሪነት።
+                    </p>
+                </div>
+
+                <!-- Specialty 3 -->
+                <div class="bg-white dark:bg-navy-900 p-5 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm space-y-2">
+                    <div class="w-10 h-10 rounded-lg bg-gold-500/10 text-gold-500 flex items-center justify-center text-xl">
+                        <i class="fa-solid fa-building-columns"></i>
+                    </div>
+                    <h4 id="skill3-title" class="font-bold text-navy-900 dark:text-slate-100">
+                        የሕግ ሥነ-ሥርዓትና መመሪያዎች
+                    </h4>
+                    <p id="skill3-desc" class="text-xs text-slate-600 dark:text-slate-400">
+                        የሕግ የበላይነትንና የፍትሕ አሠራር ድንጋጌዎችን በጥብቅ የመከተል ብቃት።
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section class="space-y-6">
+            <div class="border-b border-slate-200 dark:border-slate-800 pb-3">
+                <h3 id="sec-edu-title" class="text-2xl font-bold text-navy-900 dark:text-slate-100 flex items-center gap-3">
+                    <i class="fa-solid fa-graduation-cap text-gold-500"></i>
+                    የትምህርት ደረጃ
+                </h3>
+            </div>
+
+            <div class="bg-white dark:bg-navy-900 rounded-xl p-6 shadow-md border border-slate-200 dark:border-slate-800 flex items-start gap-4">
+                <div class="w-12 h-12 rounded-xl bg-navy-900 dark:bg-navy-800 text-gold-500 flex items-center justify-center text-2xl flex-shrink-0">
+                    <i class="fa-solid fa-university"></i>
+                </div>
+                <div>
+                    <h4 id="edu-degree" class="text-lg font-bold text-navy-900 dark:text-slate-100">
+                        በሕግ የመጀመሪያ ዲግሪ (Bachelor of Laws - LLB)
+                    </h4>
+                    <p id="edu-univ" class="text-gold-600 dark:text-gold-400 font-medium">
+                        ባህር ዳር ዩኒቨርሲቲ (Bahir Dar University)
+                    </p>
+                    <p id="edu-desc" class="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                        በሕግ ትምህርት ሳይንስ፣ በፍርድ ቤት ሥነ-ሥርዓት እና በሕግ ትርጉም ሰፊ የትምህርት ዝግጅት።
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Form for Hire / Recruitment Inquiry -->
+    <div id="hire-modal" class="fixed inset-0 z-50 hidden bg-navy-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-navy-900 w-full max-w-lg rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 relative">
+            <!-- Close Button -->
+            <button onclick="closeHireModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-xl p-2">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="modal-title" class="text-2xl font-bold text-navy-900 dark:text-slate-100 mb-2">
+                የቅጥር ጥያቄ ማቅረቢያ
+            </h3>
+            <p id="modal-subtitle" class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+                እባክዎን የድርጅትዎን ወይም የመሥሪያ ቤትዎን የቅጥር ጥያቄ ዝርዝር ከዚህ በታች ባለው ቅጽ ይሙሉ፡
+            </p>
+
+            <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                <div>
+                    <label id="lbl-form-name" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                        የእርስዎ / የተቋሙ ስም
+                    </label>
+                    <input type="text" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-navy-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-gold-500 outline-none">
+                </div>
+
+                <div>
+                    <label id="lbl-form-email" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                        ኢሜይል አድራሻ
+                    </label>
+                    <input type="email" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-navy-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-gold-500 outline-none">
+                </div>
+
+                <div>
+                    <label id="lbl-form-phone" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                        ስልክ ቁጥር
+                    </label>
+                    <input type="tel" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-navy-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-gold-500 outline-none">
+                </div>
+
+                <div>
+                    <label id="lbl-form-msg" class="block text-xs font-semibold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">
+                        የሥራ መደቡና የቅጥር ጥያቄው ዝርዝር
+                    </label>
+                    <textarea rows="4" required class="w-full px-4 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-navy-800 text-slate-900 dark:text-slate-100 focus:ring-2 focus:ring-gold-500 outline-none"></textarea>
+                </div>
+
+                <div id="form-feedback" class="hidden p-3 rounded-lg bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-300 text-xs"></div>
+
+                <div class="pt-2 flex justify-end gap-3">
+                    <button type="button" onclick="closeHireModal()" id="btn-cancel" class="px-5 py-2.5 rounded-lg border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-navy-800 text-sm font-semibold transition">
+                        ሰርዝ
+                    </button>
+                    <button type="submit" id="btn-submit" class="px-5 py-2.5 rounded-lg bg-gold-500 hover:bg-gold-600 text-navy-950 text-sm font-bold shadow-md transition">
+                        ላክ
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-navy-900 border-t border-slate-200 dark:border-slate-800 py-6 text-center text-xs text-slate-500 dark:text-slate-400 mt-12 no-print">
+        <div class="max-w-6xl mx-auto px-4 space-y-2">
+            <p id="footer-copy">
+                መብቱ በሕግ የተጠበቀ ነው © ደረጀ እንዳላማው አብጥ
+            </p>
+            <p class="text-[11px] text-slate-400 dark:text-slate-500" id="footer-sub">
+                የሕግ ባለሙያ የግል ዌብሳይትና የሙያ መገለጫ
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Default Language state: 'am' = Amharic, 'en' = English
+        let currentLang = 'am';
+
+        // Translation Dictionary (100% Strict Amharic & 100% Strict English)
+        const translations = {
+            am: {
+                langBtn: "English",
+                navName: "ደረጀ እንዳላማው አብጥ",
+                navTitle: "የሕግ ባለሙያና ዐቃቤ ሕግ",
+                badgeStatus: "ለቅጥር ጥያቄ ዝግጁ",
+                heroName: "ደረጀ እንዳላማው አብጥ",
+                heroSubtitle: "በኢ.ፌ.ዲ.ሪ. ፍትሕ ሚኒስቴር ዐቃቤ ሕግ እና የቀድሞ የወረዳ ዳኛ",
+                heroBio: "ከ9 ዓመታት በላይ በኢትዮጵያ የሕግ ሥርዓት ውስጥ በዳኝነት እና በዐቃቤ ሕግነት ያገለገሉ ከፍተኛ የሕግ ባለሙያ። በወንጀልና በፍትሐብሔር ክርክሮች፣ በሕግ ምርመራ እና በፍርድ ቤት ዳኝነት ሰፊ ልምድ ያላቸው።",
+                heroLocation: "አዲስ አበባ / ባህር ዳር፣ ኢትዮጵያ",
+                btnHireCta: "የቅጥር ጥያቄ ለማቅረብ",
+                secExpTitle: "የሥራ ልምድ እና የሕግ አገልግሎት",
+                exp1Role: "ዐቃቤ ሕግ",
+                exp1Inst: "በኢ.ፌ.ዲ.ሪ. ፍትሕ ሚኒስቴር",
+                exp1Date: "ከሚያዚያ 11 ቀን 2016 ዓ.ም እስከ አሁን",
+                exp1Desc: [
+                    "በወንጀል እና በፍትሐብሔር ክርክሮች ላይ መንግሥትንና የሕዝብ ጥቅምን ወክሎ መከራከር።",
+                    "የወንጀል ምርመራ መዛግብትን መመርመር፣ የክስ መሥረቻ ነጥቦችን ማዘጋዘጋጀትና ክስ መሥረቻ ማቅረብ።",
+                    "የፍትሐብሔር ጉዳዮችን ማዘጋጀትና ለፍርድ ቤት የጽሑፍና የቃል ክርክሮችን ማቅረብ።"
+                ],
+                exp2Role: "የወረዳ ዳኛ",
+                exp2Inst: "በአማራ ክልል ጠቅላይ ፍርድ ቤት (የወረዳ ፍርድ ቤት)",
+                exp2Date: "ከጥቅምት 01 ቀን 2010 ዓ.ም እስከ ሚያዚያ 10 ቀን 2016 ዓ.ም",
+                exp2Desc: [
+                    "የወንጀልና የፍትሐብሔር ክርክሮችን በዳኝነት መመርመር፣ መምራትና ውሳኔ መስጠት።",
+                    "የምስክሮች ቃል መስማት፣ የሰውና የሰነድ ማስረጃዎችን መመዘንና ሕጉን መሠረት ያደረገ ፍርድ መስጠት።",
+                    "የክርክር ሂደቶች የሕግ ሥነ-ሥርዓትንና የፍትሕ መርሆዎችን የጠበቁ መሆናቸውን ማረጋገጥ።"
+                ],
+                secSkillsTitle: "የሕግ ክህሎቶችና የሙያ ዘርፎች",
+                skill1Title: "የወንጀልና የፍትሐብሔር ክርክሮች",
+                skill1Desc: "በፍርድ ቤት የክርክር ሂደት፣ ክስ ማዘጋጀትና ምስክሮችን የመመርመር ከፍተኛ ችሎታ።",
+                skill2Title: "የሕግ ምርመራና ውሳኔ አሰጣጥ",
+                skill2Desc: "የዳኝነት ልምድን መሠረት ያደረገ ጥልቅ የሰነድና የሕግ ነጥብ መርማሪነት።",
+                skill3Title: "የሕግ ሥነ-ሥርዓትና መመሪያዎች",
+                skill3Desc: "የሕግ የበላይነትንና የፍትሕ አሠራር ድንጋጌዎችን በጥብቅ የመከተል ብቃት።",
+                secEduTitle: "የትምህርት ደረጃ",
+                eduDegree: "በሕግ የመጀመሪያ ዲግሪ (Bachelor of Laws - LLB)",
+                eduUniv: "ባህር ዳር ዩኒቨርሲቲ (Bahir Dar University)",
+                eduDesc: "በሕግ ትምህርት ሳይንስ፣ በፍርድ ቤት ሥነ-ሥርዓት እና በሕግ ትርጉም ሰፊ የትምህርት ዝግጅት።",
+                modalTitle: "የቅጥር ጥያቄ ማቅረቢያ",
+                modalSubtitle: "እባክዎን የድርጅትዎን ወይም የመሥሪያ ቤትዎን የቅጥር ጥያቄ ዝርዝር ከዚህ በታች ባለው ቅጽ ይሙሉ፡",
+                lblFormName: "የእርስዎ / የተቋሙ ስም",
+                lblFormEmail: "ኢሜይል አድራሻ",
+                lblFormPhone: "ስልክ ቁጥር",
+                lblFormMsg: "የሥራ መደቡና የቅጥር ጥያቄው ዝርዝር",
+                btnCancel: "ሰርዝ",
+                btnSubmit: "ላክ",
+                footerCopy: "መብቱ በሕግ የተጠበቀ ነው © ደረጀ እንዳላማው አብጥ",
+                footerSub: "የሕግ ባለሙያ የግል ዌብሳይትና የሙያ መገለጫ"
+            },
+            en: {
+                langBtn: "አማርኛ",
+                navName: "Dereje Endalamaw Abit",
+                navTitle: "Legal Practitioner & Public Prosecutor",
+                badgeStatus: "Available for Career Recruitment",
+                heroName: "Dereje Endalamaw Abit",
+                heroSubtitle: "Public Prosecutor at FDRE Ministry of Justice & Former District Judge",
+                heroBio: "Experienced Ethiopian legal professional with over 9 years of distinguished service in judicial adjudication and prosecution. Specialized in Civil and Criminal Litigation, legal research, and case management.",
+                heroLocation: "Addis Ababa / Bahir Dar, Ethiopia",
+                btnHireCta: "Submit Recruitment Proposal",
+                secExpTitle: "Work Experience & Legal Practice",
+                exp1Role: "Public Prosecutor",
+                exp1Inst: "FDRE Ministry of Justice",
+                exp1Date: "April 19, 2024 – Present",
+                exp1Desc: [
+                    "Representing government and public interests in Civil and Criminal Litigation.",
+                    "Examining criminal investigation files, drafting charges, and presenting court cases.",
+                    "Preparing civil litigation files and submitting written and oral arguments."
+                ],
+                exp2Role: "District Judge",
+                exp2Inst: "Amhara Region Supreme Court (District Court)",
+                exp2Date: "October 11, 2017 – April 18, 2024",
+                exp2Desc: [
+                    "Presided over and adjudicated complex Civil and Criminal Litigation cases.",
+                    "Evaluated witness testimonies, documentary evidence, and delivered binding judicial rulings.",
+                    "Ensured strict adherence to legal procedures and principles of justice."
+                ],
+                secSkillsTitle: "Legal Expertise & Competencies",
+                skill1Title: "Civil and Criminal Litigation",
+                skill1Desc: "Expertise in court litigation, drafting pleadings, and examining witnesses.",
+                skill2Title: "Legal Analysis & Adjudication",
+                skill2Desc: "In-depth case evaluation and legal research grounded in judicial experience.",
+                skill3Title: "Procedural & Statutory Law",
+                skill3Desc: "Strict compliance with constitutional principles and statutory guidelines.",
+                secEduTitle: "Education",
+                eduDegree: "Bachelor of Laws (LLB)",
+                eduUniv: "Bahir Dar University",
+                eduDesc: "Comprehensive study in jurisprudence, court procedures, and statutory interpretation.",
+                modalTitle: "Career Hiring Proposal",
+                modalSubtitle: "Please fill out the form below to submit a formal employment proposal:",
+                lblFormName: "Your Name / Organization Name",
+                lblFormEmail: "Email Address",
+                lblFormPhone: "Phone Number",
+                lblFormMsg: "Position Details & Proposal Description",
+                btnCancel: "Cancel",
+                btnSubmit: "Submit",
+                footerCopy: "All Rights Reserved © Dereje Endalamaw Abit",
+                footerSub: "Legal Practitioner Personal Portfolio"
+            }
+        };
+
+        // Render UI Language based on active currentLang
+        function updatePageLanguage() {
+            const t = translations[currentLang];
+
+            document.getElementById('lang-btn-text').textContent = t.langBtn;
+            document.getElementById('nav-name').textContent = t.navName;
+            document.getElementById('nav-title').textContent = t.navTitle;
+            document.getElementById('badge-status').textContent = t.badgeStatus;
+            document.getElementById('hero-name').textContent = t.heroName;
+            document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+            document.getElementById('hero-bio').textContent = t.heroBio;
+            document.getElementById('hero-location').textContent = t.heroLocation;
+            document.getElementById('btn-hire-cta').textContent = t.btnHireCta;
+
+            document.getElementById('sec-exp-title').innerHTML = `<i class="fa-solid fa-scale-balanced text-gold-500"></i> ${t.secExpTitle}`;
+            document.getElementById('exp1-role').textContent = t.exp1Role;
+            document.getElementById('exp1-inst').textContent = t.exp1Inst;
+            document.getElementById('exp1-date').textContent = t.exp1Date;
+            renderList('exp1-desc', t.exp1Desc);
+
+            document.getElementById('exp2-role').textContent = t.exp2Role;
+            document.getElementById('exp2-inst').textContent = t.exp2Inst;
+            document.getElementById('exp2-date').textContent = t.exp2Date;
+            renderList('exp2-desc', t.exp2Desc);
+
+            document.getElementById('sec-skills-title').innerHTML = `<i class="fa-solid fa-gavel text-gold-500"></i> ${t.secSkillsTitle}`;
+            document.getElementById('skill1-title').textContent = t.skill1Title;
+            document.getElementById('skill1-desc').textContent = t.skill1Desc;
+            document.getElementById('skill2-title').textContent = t.skill2Title;
+            document.getElementById('skill2-desc').textContent = t.skill2Desc;
+            document.getElementById('skill3-title').textContent = t.skill3Title;
+            document.getElementById('skill3-desc').textContent = t.skill3Desc;
+
+            document.getElementById('sec-edu-title').innerHTML = `<i class="fa-solid fa-graduation-cap text-gold-500"></i> ${t.secEduTitle}`;
+            document.getElementById('edu-degree').textContent = t.eduDegree;
+            document.getElementById('edu-univ').textContent = t.eduUniv;
+            document.getElementById('edu-desc').textContent = t.eduDesc;
+
+            document.getElementById('modal-title').textContent = t.modalTitle;
+            document.getElementById('modal-subtitle').textContent = t.modalSubtitle;
+            document.getElementById('lbl-form-name').textContent = t.lblFormName;
+            document.getElementById('lbl-form-email').textContent = t.lblFormEmail;
+            document.getElementById('lbl-form-phone').textContent = t.lblFormPhone;
+            document.getElementById('lbl-form-msg').textContent = t.lblFormMsg;
+            document.getElementById('btn-cancel').textContent = t.btnCancel;
+            document.getElementById('btn-submit').textContent = t.btnSubmit;
+
+            document.getElementById('footer-copy').textContent = t.footerCopy;
+            document.getElementById('footer-sub').textContent = t.footerSub;
+        }
+
+        function renderList(elementId, items) {
+            const ul = document.getElementById(elementId);
+            ul.innerHTML = items.map(item => `<li>${item}</li>`).join('');
+        }
+
+        // Toggle Language Action
+        function toggleLanguage() {
+            currentLang = (currentLang === 'am') ? 'en' : 'am';
+            updatePageLanguage();
+        }
+
+        // Toggle Dark / Light Theme
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-moon';
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-sun';
+            }
+        }
+
+        // Profile Image Upload Handler
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-img').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Hire Proposal Modal Controls
+        function openHireModal() {
+            document.getElementById('hire-modal').classList.remove('hidden');
+        }
+
+        function closeHireModal() {
+            document.getElementById('hire-modal').classList.add('hidden');
+            document.getElementById('form-feedback').classList.add('hidden');
+        }
+
+        // Form Submit Simulation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const feedback = document.getElementById('form-feedback');
+            feedback.textContent = currentLang === 'am' 
+                ? 'የቅጥር ጥያቄዎ በተሳካ ሁኔታ ተልኳል! በቅርቡ እናገኝዎታለን።' 
+                : 'Your recruitment proposal has been submitted successfully!';
+            feedback.classList.remove('hidden');
+            setTimeout(() => {
+                closeHireModal();
+            }, 2500);
+        }
+
+        // Initial Load Set Theme & Amharic Content
+        window.onload = function() {
+            document.documentElement.classList.add('dark');
+            document.getElementById('theme-icon').className = 'fa-solid fa-sun';
+            updatePageLanguage();
+        };
+    </script>
+</body>
+</html>
